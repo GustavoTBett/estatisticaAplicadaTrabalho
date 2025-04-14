@@ -90,36 +90,37 @@ print(df['code_yrs_num'].mean().round(2))
 print("\n📊 Distribuição das faixas de experiência:")
 print(df['code_yrs'].value_counts(normalize=True).round(3) * 100)
 
-print([col for col in df.columns if 'education' in col.lower()])
-
-print("\n🎓 Nível de escolaridade:")
-if 'education_level' in df.columns:
-    print(df['education_level'].value_counts(normalize=True) * 100)
-
 # ===============================
 # 📈 Interesses e Futuro
 # ===============================
-print("\n🚀 Tecnologias que os devs querem aprender:")
-future_cols = [col for col in df.columns if col.startswith('future_technologies_interested_in::')]
-future_data = df[future_cols].apply(to_binary)
-print((future_data.mean().sort_values(ascending=False) * 100).round(2).head(10))
-
-print([col for col in df.columns if 'future' in col.lower()])
-
-print([col for col in df.columns if 'motivation' in col.lower()])
-
-
-print("\n🎯 Motivação principal para aprender novas tecnologias:")
-if 'main_motivation_to_learn_new_tech' in df.columns:
-    print(df['main_motivation_to_learn_new_tech'].value_counts(normalize=True) * 100)
+print("\n🚀 Linguagens que os devs pretendem adotar/migrar para:")
+adopt_cols = [col for col in df.columns if col.startswith('adopt_proglang::')]
+adopt_data = df[adopt_cols].apply(to_binary)
+adopt_usage = (adopt_data.mean().sort_values(ascending=False) * 100).round(2)
+print(adopt_usage.head(10))
 
 # ===============================
 # 💵 Informações Salariais (faixa)
 # ===============================
-print([col for col in df.columns if 'income' in col.lower()])
+if 'salary_satisfied' in df.columns:
+    print("\n💵 Satisfação com o salário atual (%):")
+    print(df['salary_satisfied'].value_counts(normalize=True).round(3) * 100)
 
+# Filtra colunas com linguagem principal
+primary_lang_cols = [col for col in df.columns if col.startswith('primary_lang::')]
 
+# Transforma em binário
+primary_lang_data = df[primary_lang_cols].apply(to_binary)
 
-if 'income_grouped' in df.columns:
-    print("\n💵 Faixas salariais (grupo):")
-    print(df['income_grouped'].value_counts(normalize=True) * 100)
+# Adiciona a coluna de satisfação
+primary_lang_data['salary_satisfied'] = df['salary_satisfied']
+
+# Agrupa por satisfação e soma por linguagem
+cross_tab = primary_lang_data.groupby('salary_satisfied').sum()
+
+# Calcula o percentual por linha (dentro de cada resposta de satisfação)
+cross_tab_percent = cross_tab.div(cross_tab.sum(axis=1), axis=0) * 100
+
+# Mostra os 5 principais casos por linguagem
+print("\n📊 Cruzamento: Linguagem Principal vs Satisfação Salarial (%):")
+print(cross_tab_percent.T.sort_values(by='Mostly satisfied', ascending=False).head(10).round(2))

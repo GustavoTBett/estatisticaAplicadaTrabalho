@@ -1,6 +1,6 @@
 # Estudos de Caso em Estatística Aplicada à Engenharia de Software
 
-## Título do Estudo
+## Título do Estudo  
 **Perfil e Práticas dos Desenvolvedores de Software: Um Estudo Estatístico com Base na Pesquisa JetBrains Developer Ecosystem 2024**
 
 ---
@@ -28,11 +28,17 @@ Os arquivos fornecidos incluem:
 - `LICENSE.txt`: Termos da licença de uso.
 
 O conjunto de dados inclui informações sobre:
+
 - Preferências de linguagem de programação
 - Regiões e países
-- Grupos salariais (sem valores exatos por motivos de privacidade)
+- Experiência profissional
+- Posição ocupada
+- Satisfação salarial (percepção)
+- Tamanho da empresa e equipe
+- Ferramentas utilizadas no dia a dia
 
 Este conjunto atende a dúvidas comuns de pessoas que estão começando na área de tecnologia, como:
+
 - **Qual linguagem paga mais?**
 - **Quais são as tendências do mercado?**
 - **Quais ferramentas são promissoras para o futuro?**
@@ -50,7 +56,7 @@ Investigar, por meio de análise estatística, os hábitos, preferências e cara
 
 ### 4.1 Coleta de Dados
 
-- Os dados foram extraídos do arquivo público `DevEcosystem 2024 questions_outside.csv`.
+- Os dados foram extraídos do arquivo público `2024_sharing_data_outside.csv`.
 
 ### 4.2 Seleção de Variáveis
 
@@ -58,20 +64,22 @@ As seguintes variáveis foram selecionadas para a análise:
 
 - `employment_status`: situação de emprego do respondente.
 - `primary_lang`: linguagens de programação principais.
+- `proglang`: linguagens utilizadas no geral.
 - `ide_main`: IDE mais utilizada.
 - `code_yrs`: anos de experiência profissional.
 - `test_types`: tipos de testes utilizados.
-- `devops_use_docker`: uso de containers no desenvolvimento.
+- `position_level`: nível de senioridade.
 - `company_size` e `team_size`: estrutura das empresas.
+- `salary_satisfied`: percepção sobre a satisfação salarial.
 
 ### 4.3 Técnicas Estatísticas Utilizadas
 
 - Análise de frequência (absoluta e relativa)
 - Gráficos de barras e pizza
 - Medidas de tendência central (média, moda, mediana)
-- Cruzamento de variáveis (Ex: linguagem x IDE, experiência x tipo de teste)
+- Cruzamento de variáveis (Ex: linguagem principal × satisfação salarial)
 
-Ferramentas utilizadas: Python (`pandas`, `seaborn`, `matplotlib`)
+Ferramentas utilizadas: Python (`pandas`)
 
 ---
 
@@ -79,36 +87,62 @@ Ferramentas utilizadas: Python (`pandas`, `seaborn`, `matplotlib`)
 
 ### 5.1 Linguagens de Programação Mais Usadas
 
-> Gráfico de barras com as linguagens mais populares.
+> Destaques:  
+> JavaScript (62.12%), Python (54.97%), HTML/CSS (53.16%), SQL (52.27%) e Java (44.36%).
 
-### 5.2 IDEs mais utilizadas
+### 5.2 Linguagens Principais
 
-> Comparação entre JetBrains IDEs, VSCode, Sublime, etc.
+> Mais escolhidas como linguagem principal:  
+> Python (13.98%), Java (12.80%), JavaScript (11.61%), TypeScript (9.51%).
 
-### 5.3 Experiência dos Desenvolvedores
+### 5.3 IDEs mais utilizadas
 
-> Distribuição de anos de experiência por faixa etária ou por linguagem.
+> As IDEs mais comuns são:  
+> IntelliJ IDEA (25.86%), VS Code (22.43%), PyCharm (8.64%), Visual Studio (7.26%).
 
-### 5.4 Relação entre Linguagem e Ferramentas de Teste
+### 5.4 Experiência dos Desenvolvedores
 
-> Exemplo: Java + JUnit, Python + pytest, etc.
+> Média de experiência: **8,02 anos**  
+> Faixa mais comum: **3 a 5 anos (22.7%)** seguida de **6 a 10 anos (20.7%)**.
 
-### 5.5 Uso de Containers e DevOps
+### 5.5 Nível de Posição
 
-> Percentual de desenvolvedores que usam Docker, Kubernetes e ferramentas de CI/CD.
+> A maioria dos profissionais se identificam como:  
+> **Senior (49.8%)**, **Middle (30.1%)** e **Junior (15.3%)**.
+
+### 5.6 Situação de Emprego
+
+> Status mais comum:  
+> **Empregados em tempo integral (64.9%)**, **estudantes (10.8%)** e **trabalhadores autônomos ou freelancers (~10%)**.
+
+### 5.7 Tamanho da Empresa e da Equipe
+
+> A maioria trabalha em empresas de médio porte (51 a 500 funcionários) e times pequenos (2 a 7 pessoas).
+
+### 5.8 Tipos de Testes Utilizados
+
+> Unit Test (23.85%), Integration Test (19.32%), End-to-End Test (14.39%).
 
 ---
 
-## 6. Resultados e Discussão
+## 6. Cruzamento: Linguagem Principal × Satisfação Salarial
 
-Os dados revelam:
+Este cruzamento mostra a distribuição da satisfação salarial para as 10 linguagens mais comuns como principais.
 
-- Forte adoção de linguagens como Python, JavaScript e Java.
-- Preferência por IDEs como VSCode e IntelliJ.
-- Crescente uso de containers no desenvolvimento moderno.
-- Adoção variada de testes automatizados, com destaque para testes unitários.
+| Linguagem          | % Completamente Satisfeitos | % Mais Satisfeitos | % Insatisfeitos |
+|--------------------|------------------------------|-------------------|------------------|
+| Python             | 12.41%                       | 12.28%            | 14.05%           |
+| Java               | 11.11%                       | 13.36%            | 14.19%           |
+| TypeScript         | 10.75%                       | 10.83%            | 9.79%            |
+| JavaScript         | 9.48%                        | 11.58%            | 14.05%           |
+| SQL                | 7.39%                        | 8.23%             | 8.09%            |
+| C#                 | 7.98%                        | 6.89%             | 5.25%            |
+| HTML / CSS         | 6.81%                        | 7.36%             | 8.73%            |
+| PHP                | 5.21%                        | 5.49%             | 4.83%            |
+| Kotlin             | 4.27%                        | 4.37%             | 3.55%            |
+| Shell scripting    | 4.14%                        | 3.18%             | 2.91%            |
 
-**Reflexão:** A estatística aplicada permite identificar padrões de comportamento, orientar a adoção de tecnologias e melhorar a organização de times de desenvolvimento.
+> **Observação**: Linguagens como Python, Java e TypeScript apresentam maiores percentuais de satisfação total.
 
 ---
 
@@ -117,13 +151,14 @@ Os dados revelam:
 ### Desafios
 
 - Coleta de dados com viés de autoseleção.
-- Grande volume de dados requer tratamento cuidadoso.
+- Falta de dados exatos sobre salário.
+- Grande volume e granularidade exigem tratamento cuidadoso.
 
 ### Boas Práticas
 
-- Anonimização dos dados.
-- Visualização clara para facilitar a interpretação.
-- Uso de amostragem balanceada em cruzamentos de variáveis.
+- Anonimização e privacidade dos dados.
+- Visualização clara e objetiva.
+- Adoção de cruzamentos para gerar insights mais profundos.
 
 ---
 
@@ -138,5 +173,5 @@ Este estudo também é útil para orientar quem deseja entrar na área de tecnol
 ## 9. Referências
 
 - JetBrains Developer Ecosystem Survey 2024: [https://www.jetbrains.com/lp/devecosystem-2024/](https://www.jetbrains.com/lp/devecosystem-2024/)
-- Python libraries: pandas, matplotlib, seaborn
+- Python libraries: pandas
 - Estatística Aplicada à Computação — Bibliografia da disciplina
