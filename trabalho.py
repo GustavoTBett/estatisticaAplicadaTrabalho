@@ -9,6 +9,7 @@ def to_binary(col):
 
 # ===============================
 # 🧑‍💼 Perfil Profissional
+# Análise de Frequência Relativa
 # ===============================
 print("\n📊 Distribuição de Status de Emprego:")
 print(df['employment_status'].value_counts(normalize=True) * 100)
